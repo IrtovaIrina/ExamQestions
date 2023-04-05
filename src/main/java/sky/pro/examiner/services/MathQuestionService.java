@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import sky.pro.examiner.entities.Question;
 import sky.pro.examiner.repositories.QuestionRepository;
-
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 @Service("mathService")
 public class MathQuestionService implements QuestionService{
     QuestionRepository repository;
@@ -29,6 +26,10 @@ public class MathQuestionService implements QuestionService{
     @Override
     public Question questionRemove(Question question) {
         return repository.questionRemove(question);
+    }
+    @Override
+    public Question questionFind(Question question) {
+        return repository.questionFind(question);
     }
 
     @Override

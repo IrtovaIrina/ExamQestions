@@ -10,5 +10,6 @@ public interface QuestionService {
     Question questionRemove(Question question);
     Collection<Question> getAll();
     Question getRandom();
+    Question questionFind(Question question);
 
 }

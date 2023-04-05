@@ -2,6 +2,7 @@ package sky.pro.examiner.controllers;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import sky.pro.examiner.entities.Question;
+import sky.pro.examiner.exception.QuestionNotFoundException;
 import sky.pro.examiner.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class JavaQuestionController {
     public JavaQuestionController(@Qualifier("javaService")QuestionService service) {
         this.service = service;
     }
-    @ExceptionHandler(Exception.class)
-    public String handleException(Exception e) {
+    @ExceptionHandler(QuestionNotFoundException.class)
+    public String handleException(QuestionNotFoundException e) {
         return String.format("%s %s", HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
@@ -32,9 +33,12 @@ public class JavaQuestionController {
     public Collection<Question> getQuestion() {
         return service.getAll();
     }
-    @GetMapping("/employee/contains")
+    @GetMapping("/remove")
     public Question removeQuestion(@RequestParam("answer") String answer, @RequestParam("question") String question) {
         return service.questionRemove(new Question(answer,question));
+    }@GetMapping("/find")
+    public Question findQuestion(@RequestParam("answer") String answer, @RequestParam("question") String question) {
+        return service.questionFind(new Question(answer,question));
     }
 
 }

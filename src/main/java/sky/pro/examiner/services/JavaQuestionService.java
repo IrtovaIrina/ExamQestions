@@ -3,13 +3,9 @@ package sky.pro.examiner.services;
 import org.springframework.beans.factory.annotation.Qualifier;
 import sky.pro.examiner.entities.Question;
 import org.springframework.stereotype.Service;
-import sky.pro.examiner.repositories.JavaQuestionRepository;
 import sky.pro.examiner.repositories.QuestionRepository;
-
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 @Service("javaService")
 public class JavaQuestionService implements QuestionService{
     private QuestionRepository repository;
@@ -31,6 +27,10 @@ public class JavaQuestionService implements QuestionService{
     @Override
     public Question questionRemove(Question question) {
         return repository.questionRemove(question);
+    }
+    @Override
+    public Question questionFind(Question question) {
+        return repository.questionFind(question);
     }
 
     @Override

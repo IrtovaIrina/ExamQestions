@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sky.pro.examiner.entities.Question;
+import sky.pro.examiner.exception.QuestionNotFoundException;
 import sky.pro.examiner.services.QuestionService;
 import java.util.Collection;
 
@@ -17,8 +18,8 @@ public class MathQuestionController {
     public MathQuestionController(@Qualifier("mathService") QuestionService service) {
         this.service = service;
     }
-    @ExceptionHandler(Exception.class)
-    public String handleException(Exception e) {
+    @ExceptionHandler(QuestionNotFoundException.class)
+    public String handleException(QuestionNotFoundException e) {
         return String.format("%s %s", HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
@@ -30,7 +31,7 @@ public class MathQuestionController {
     public Collection<Question> getQuestion() {
         return service.getAll();
     }
-    @GetMapping("/employee/contains")
+    @GetMapping("/remove")
     public Question removeQuestion(@RequestParam("answer") String answer, @RequestParam("question") String question) {
         return service.questionRemove(new Question(answer,question));
     }

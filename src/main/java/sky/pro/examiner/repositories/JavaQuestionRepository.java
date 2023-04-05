@@ -3,6 +3,7 @@ package sky.pro.examiner.repositories;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 import sky.pro.examiner.entities.Question;
+import sky.pro.examiner.exception.QuestionNotFoundException;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -19,26 +20,33 @@ public class JavaQuestionRepository implements QuestionRepository{
         questions.add(new Question("5","пять"));
         questions.add(new Question("6","шесть"));
     }
-
     @Override
     public Question questionAdd(String question, String answer) {
         Question q = new Question(question,answer);
         questions.add(q);
         return q;
     }
-
     @Override
     public Question questionAdd(Question question) {
         questions.add(question);
         return question;
     }
-
     @Override
     public Question questionRemove(Question question) {
-        questions.add(question);
+        if(!questions.contains(question)){
+            throw new QuestionNotFoundException("Вопрос не найден!");
+        }
+        questions.remove(question);
         return question;
     }
-
+    @Override
+    public Question questionFind(Question question) {
+        if(!questions.contains(question)){
+            throw new QuestionNotFoundException("Вопрос не найден!");
+        }
+        questions.contains(question);
+        return question;
+    }
     @Override
     public Collection<Question> getAll() {
         return questions;
