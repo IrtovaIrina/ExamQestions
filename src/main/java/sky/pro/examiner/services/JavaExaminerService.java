@@ -17,10 +17,15 @@ public class JavaExaminerService implements ExaminerService{
 
     @Override
     public Collection<Question> getQuestions(int amount) {
-        Collection<Question> collection = new HashSet<>();
-        while (collection.size() != amount){
-            collection.add(questionService.getRandom());
+        if(questionService.getAll().size() <= amount){
+            return questionService.getAll();
+
+        }else {
+            Collection<Question> collection = new HashSet<>();
+            while (collection.size() != amount) {
+                collection.add(questionService.getRandom());
+            }
+            return collection;
         }
-        return collection;
     }
 }

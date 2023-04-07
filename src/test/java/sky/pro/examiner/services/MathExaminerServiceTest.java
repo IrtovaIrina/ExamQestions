@@ -1,24 +1,25 @@
 package sky.pro.examiner.services;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sky.pro.examiner.entities.Question;
-import sky.pro.examiner.repositories.QuestionRepository;
+
 
 import java.util.Collection;
 import java.util.HashSet;
 
+
 import static org.mockito.Mockito.when;
+
 @ContextConfiguration(classes = {MathExaminerService.class})
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
 public class MathExaminerServiceTest {
     @Autowired
     @Qualifier("mathExaminerService")
@@ -27,15 +28,16 @@ public class MathExaminerServiceTest {
     @Qualifier("mathService")
     private QuestionService questionService;
 
-
-    int amount = 5;
+    Question q = new Question("55","пятдесят пять");
+    Collection<Question> questions = new HashSet<>();
     @Test
     void getQuestions_success(){
-        Question question = new Question("23","двадцать три");
-        Collection<Question> set= new HashSet<>();
-        set.add(question);
-        when(questionService.getRandom()).thenReturn(question);
-        int size = examinerService.getQuestions(amount).size();
-        Assertions.assertEquals(examinerService.getQuestions(amount),set);
+        questions.add(q);
+        when(questionService.getRandom()).thenReturn(q);
+        when(questionService.getAll()).thenReturn(questions);
+        Assertions.assertEquals(examinerService.getQuestions(1),questions);
+        Assertions.assertEquals(examinerService.getQuestions(3),questions);
     }
 }
+
+

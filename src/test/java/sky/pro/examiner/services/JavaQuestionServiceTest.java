@@ -23,18 +23,40 @@ import static org.mockito.Mockito.when;
 public class JavaQuestionServiceTest {
     @Autowired
     @Qualifier("javaService")
-    private QuestionService departmentService;
+    private QuestionService questionService;
     @MockBean
     @Qualifier("javaRepository")
     private QuestionRepository repository;
+
     Question q = new Question("55","пятдесят пять");
     Question q2 = new Question("22","двадцать два");
     private Set<Question> questions = new HashSet<>();
 
     @Test
+    void questionAddWithQuestionAndAnswer_success(){
+        when(repository.questionAdd(q)).thenReturn(q);
+        Assertions.assertEquals(questionService.questionAdd(new Question("55","пятдесят пять")),q);
+    }
+    @Test
     void questionAdd_success(){
         when(repository.questionAdd(q)).thenReturn(q);
-        Assertions.assertEquals(departmentService.questionAdd(new Question("55","пятдесят пять")),q);
+        Assertions.assertEquals(questionService.questionAdd(q),q);
     }
-
+    @Test
+    void questionFind_success(){
+        when(repository.questionFind(q)).thenReturn(q);
+        Assertions.assertEquals(questionService.questionFind(q),q);
+    }
+    @Test
+    void questionRemove_success(){
+        when(repository.questionRemove(q)).thenReturn(q);
+        Assertions.assertEquals(questionService.questionRemove(q),q);
+    }
+    @Test
+    void getAll_success(){
+        questions.add(q);
+        questions.add(q2);
+        when(repository.getAll()).thenReturn(questions);
+        Assertions.assertEquals(questionService.getAll(),questions);
+    }
 }
