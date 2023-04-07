@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 @Repository("mathRepository")
-public class MathQuestionRepository implements QuestionRepository {
+public class MathQuestionRepository extends JavaQuestionRepository implements QuestionRepository {
     private Set<Question> questions = new HashSet<>();
     @PostConstruct
     private void init(){
@@ -20,38 +20,4 @@ public class MathQuestionRepository implements QuestionRepository {
         questions.add(new Question("5 + 1","шесть"));
     }
 
-    @Override
-    public Question questionAdd(String question, String answer) {
-        Question q = new Question(question,answer);
-        questions.add(q);
-        return q;
-    }
-
-    @Override
-    public Question questionAdd(Question question) {
-        questions.add(question);
-        return question;
-    }
-
-    @Override
-    public Question questionRemove(Question question) {
-        if(!questions.contains(question)){
-            throw new QuestionNotFoundException("Вопрос не найден!");
-        }
-        questions.remove(question);
-        return question;
-    }
-    @Override
-    public Question questionFind(Question question) {
-        if(!questions.contains(question)){
-            throw new QuestionNotFoundException("Вопрос не найден!");
-        }
-        questions.contains(question);
-        return question;
-    }
-
-    @Override
-    public Collection<Question> getAll() {
-        return questions;
-    }
 }

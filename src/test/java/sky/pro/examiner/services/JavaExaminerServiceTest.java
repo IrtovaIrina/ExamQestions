@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = {JavaExaminerService.class})
 @ExtendWith(SpringExtension.class)
-public class JavaExaminerServiceTest {
+public class JavaExaminerServiceTest implements ExaminerServiceTest{
     @Autowired
     @Qualifier("javaExaminerService")
     private ExaminerService examinerService;
@@ -29,7 +29,7 @@ public class JavaExaminerServiceTest {
     Question q = new Question("55","пятдесят пять");
     Collection<Question> questions = new HashSet<>();
     @Test
-    void getQuestions_success(){
+    public void getQuestions_success(){
         questions.add(q);
         when(questionService.getRandom()).thenReturn(q);
         when(questionService.getAll()).thenReturn(questions);

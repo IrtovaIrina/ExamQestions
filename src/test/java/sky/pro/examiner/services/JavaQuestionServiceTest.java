@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration(classes = {JavaQuestionService.class})
 @ExtendWith(SpringExtension.class)
 
-public class JavaQuestionServiceTest {
+public class JavaQuestionServiceTest implements QuestionServiceTest{
     @Autowired
     @Qualifier("javaService")
     private QuestionService questionService;
@@ -32,27 +32,27 @@ public class JavaQuestionServiceTest {
     private Set<Question> questions = new HashSet<>();
 
     @Test
-    void questionAddWithQuestionAndAnswer_success(){
+    public void questionAddWithQuestionAndAnswer_success(){
         when(repository.questionAdd(q)).thenReturn(q);
         Assertions.assertEquals(questionService.questionAdd(new Question("55","пятдесят пять")),q);
     }
     @Test
-    void questionAdd_success(){
+    public void questionAdd_success(){
         when(repository.questionAdd(q)).thenReturn(q);
         Assertions.assertEquals(questionService.questionAdd(q),q);
     }
     @Test
-    void questionFind_success(){
+    public void questionFind_success(){
         when(repository.questionFind(q)).thenReturn(q);
         Assertions.assertEquals(questionService.questionFind(q),q);
     }
     @Test
-    void questionRemove_success(){
+    public void questionRemove_success(){
         when(repository.questionRemove(q)).thenReturn(q);
         Assertions.assertEquals(questionService.questionRemove(q),q);
     }
     @Test
-    void getAll_success(){
+    public void getAll_success(){
         questions.add(q);
         questions.add(q2);
         when(repository.getAll()).thenReturn(questions);
