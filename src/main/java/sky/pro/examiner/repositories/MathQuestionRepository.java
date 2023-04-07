@@ -3,9 +3,8 @@ package sky.pro.examiner.repositories;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 import sky.pro.examiner.entities.Question;
-import sky.pro.examiner.exception.QuestionNotFoundException;
 
-import java.util.Collection;
+
 import java.util.HashSet;
 import java.util.Set;
 @Repository("mathRepository")
