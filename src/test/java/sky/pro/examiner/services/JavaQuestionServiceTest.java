@@ -11,7 +11,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sky.pro.examiner.entities.Question;
 import sky.pro.examiner.repositories.QuestionRepository;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
