@@ -17,9 +17,10 @@ public class JavaQuestionController {
     private final QuestionService service;
 
     @Autowired
-    public JavaQuestionController(@Qualifier("javaService")QuestionService service) {
+    public JavaQuestionController(@Qualifier("javaService") QuestionService service) {
         this.service = service;
     }
+
     @ExceptionHandler(QuestionNotFoundException.class)
     public String handleException(QuestionNotFoundException e) {
         return String.format("%s %s", HttpStatus.BAD_REQUEST.value(), e.getMessage());
@@ -27,18 +28,22 @@ public class JavaQuestionController {
 
     @GetMapping("/add")
     public Question addQuestion(@RequestParam("answer") String answer, @RequestParam("question") String question) {
-        return service.questionAdd(answer,question);
+        return service.questionAdd(answer, question);
     }
+
     @GetMapping
     public Collection<Question> getQuestion() {
         return service.getAll();
     }
+
     @GetMapping("/remove")
     public Question removeQuestion(@RequestParam("answer") String answer, @RequestParam("question") String question) {
-        return service.questionRemove(new Question(answer,question));
-    }@GetMapping("/find")
+        return service.questionRemove(new Question(answer, question));
+    }
+
+    @GetMapping("/find")
     public Question findQuestion(@RequestParam("answer") String answer, @RequestParam("question") String question) {
-        return service.questionFind(new Question(answer,question));
+        return service.questionFind(new Question(answer, question));
     }
 
 }

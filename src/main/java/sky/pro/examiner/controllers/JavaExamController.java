@@ -1,10 +1,11 @@
 package sky.pro.examiner.controllers;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import sky.pro.examiner.entities.Question;
+import sky.pro.examiner.exception.QuestionOutOfIndexException;
 import sky.pro.examiner.services.ExaminerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -23,6 +24,11 @@ public class JavaExamController {
     @GetMapping("/{amount}")
     public Collection<Question> getQuestions(@PathVariable("amount") int amount) {
         return service.getQuestions(amount);
+    }
+
+    @ExceptionHandler(QuestionOutOfIndexException.class)
+    public String handleException(QuestionOutOfIndexException e) {
+        return String.format("%s %s", HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
 }

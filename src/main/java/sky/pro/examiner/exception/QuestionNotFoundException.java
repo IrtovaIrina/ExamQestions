@@ -1,6 +1,6 @@
 package sky.pro.examiner.exception;
 
-public class QuestionNotFoundException extends RuntimeException{
+public class QuestionNotFoundException extends RuntimeException {
     public QuestionNotFoundException() {
         super();
     }
