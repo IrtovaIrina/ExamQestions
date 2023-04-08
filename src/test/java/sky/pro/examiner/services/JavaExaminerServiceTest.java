@@ -9,16 +9,19 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sky.pro.examiner.entities.Question;
+import sky.pro.examiner.exception.QuestionNotFoundException;
+import sky.pro.examiner.exception.QuestionOutOfIndexException;
 
 import java.util.Collection;
 import java.util.HashSet;
 
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = {JavaExaminerService.class})
 @ExtendWith(SpringExtension.class)
-public class JavaExaminerServiceTest implements ExaminerServiceTest{
+public class JavaExaminerServiceTest implements ExaminerServiceTest {
     @Autowired
     @Qualifier("javaExaminerService")
     private ExaminerService examinerService;
@@ -26,14 +29,25 @@ public class JavaExaminerServiceTest implements ExaminerServiceTest{
     @Qualifier("javaService")
     private QuestionService questionService;
 
-    Question q = new Question("55","пятдесят пять");
+    Question q = new Question("55", "пятдесят пять");
     Collection<Question> questions = new HashSet<>();
+
     @Test
-    public void getQuestions_success(){
+    public void getQuestions_success() {
         questions.add(q);
         when(questionService.getRandom()).thenReturn(q);
         when(questionService.getAll()).thenReturn(questions);
-        Assertions.assertEquals(examinerService.getQuestions(1),questions);
-        Assertions.assertEquals(examinerService.getQuestions(3),questions);
+        Assertions.assertEquals(examinerService.getQuestions(1), questions);
+    }
+
+    @Test
+    public void getQuestions_WithQuestionOutOfIndexException() {
+        questions.add(q);
+        when(questionService.getRandom()).thenReturn(q);
+        when(questionService.getAll()).thenReturn(questions);
+        assertThrows(QuestionOutOfIndexException.class,
+                () -> {
+                    examinerService.getQuestions(3);
+                });
     }
 }

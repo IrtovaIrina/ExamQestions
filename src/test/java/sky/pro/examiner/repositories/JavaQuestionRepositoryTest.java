@@ -45,7 +45,8 @@ public class JavaQuestionRepositoryTest implements QuestionRepositoryTest{
     @Test
     public void questionFind_WithQuestionNotFoundException() {
         assertThrows(QuestionNotFoundException.class,
-                () -> { out.questionRemove(q);
+                () -> {
+                    out.questionRemove(q);
                 });
     }
 }

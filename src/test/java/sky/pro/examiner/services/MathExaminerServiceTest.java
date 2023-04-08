@@ -19,7 +19,7 @@ public class MathExaminerServiceTest extends JavaExaminerServiceTest implements 
     @Qualifier("mathService")
     private QuestionService questionService;
 
-    Question q = new Question("52","пятдесят два");
+    Question q = new Question("52", "пятдесят два");
 }
 
 

@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration(classes = {JavaQuestionService.class})
 @ExtendWith(SpringExtension.class)
 
-public class JavaQuestionServiceTest implements QuestionServiceTest{
+public class JavaQuestionServiceTest implements QuestionServiceTest {
     @Autowired
     @Qualifier("javaService")
     private QuestionService questionService;
@@ -27,35 +27,39 @@ public class JavaQuestionServiceTest implements QuestionServiceTest{
     @Qualifier("javaRepository")
     private QuestionRepository repository;
 
-    Question q = new Question("55","пятдесят пять");
-    Question q2 = new Question("22","двадцать два");
+    Question q = new Question("55", "пятдесят пять");
+    Question q2 = new Question("22", "двадцать два");
     private Set<Question> questions = new HashSet<>();
 
     @Test
-    public void questionAddWithQuestionAndAnswer_success(){
+    public void questionAddWithQuestionAndAnswer_success() {
         when(repository.questionAdd(q)).thenReturn(q);
-        Assertions.assertEquals(questionService.questionAdd(new Question("55","пятдесят пять")),q);
+        Assertions.assertEquals(questionService.questionAdd(new Question("55", "пятдесят пять")), q);
     }
+
     @Test
-    public void questionAdd_success(){
+    public void questionAdd_success() {
         when(repository.questionAdd(q)).thenReturn(q);
-        Assertions.assertEquals(questionService.questionAdd(q),q);
+        Assertions.assertEquals(questionService.questionAdd(q), q);
     }
+
     @Test
-    public void questionFind_success(){
+    public void questionFind_success() {
         when(repository.questionFind(q)).thenReturn(q);
-        Assertions.assertEquals(questionService.questionFind(q),q);
+        Assertions.assertEquals(questionService.questionFind(q), q);
     }
+
     @Test
-    public void questionRemove_success(){
+    public void questionRemove_success() {
         when(repository.questionRemove(q)).thenReturn(q);
-        Assertions.assertEquals(questionService.questionRemove(q),q);
+        Assertions.assertEquals(questionService.questionRemove(q), q);
     }
+
     @Test
-    public void getAll_success(){
+    public void getAll_success() {
         questions.add(q);
         questions.add(q2);
         when(repository.getAll()).thenReturn(questions);
-        Assertions.assertEquals(questionService.getAll(),questions);
+        Assertions.assertEquals(questionService.getAll(), questions);
     }
 }
